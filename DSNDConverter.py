@@ -88,7 +88,7 @@ def process_json(path):
             insertString=insertString+"("
             for val in values:
                 if val not in validJSON[x]:
-                    insertString=insertString+"'NULL'"+","
+                    insertString=insertString+"''"+","
                 else:
                     insertString=insertString+"'"+validJSON[x][val]+"'"+","
             insertString=insertString[:-1]+");\n"
