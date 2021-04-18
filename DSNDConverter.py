@@ -178,6 +178,30 @@ def process_sql(path):
         file.write(finishString[:-1])
         file.close()
 
+def process_txt(path):
+    header = ""
+    insertString = ""
+    finishString = ""
+    with open(path, "r", encoding="utf-8") as file:
+        lines=file.readlines()
+        dbname = input("Jmeno DB pro " + path+" ")
+        insertString="INSERT INTO "+dbname+" ("
+        for line in lines:
+            print(line)
+            break
+        columns=input("Napište jména sloupců, v pořadí jako je uvedeno výše, oddělené čárkami ")
+        insertString=insertString+columns.replace("\"","")+") VALUES "
+        header=insertString
+        for line in lines:
+            insertString=header+"("
+            for key in line.split(", "):
+                insertString=insertString+"'"+key.replace("\n","")+"',"
+            insertString=insertString[:-1]+")\n"
+            finishString=finishString+insertString
+        file.close()
+    with open(path.replace(path.split(".")[-1], "converted.sql"), "w") as file:
+        file.write(finishString[:-1])
+        file.close()
 file_paths = sys.argv[1:]
 for path in file_paths:
     ext = path.split(".")[-1]
@@ -191,5 +215,7 @@ for path in file_paths:
         process_sql(path)
     elif ext == "json":
         process_json(path)
+    elif ext=="txt":
+        process_txt(path)
     else:
         pass
