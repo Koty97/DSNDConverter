@@ -187,7 +187,6 @@ def process_txt(path):
         dbname = input("Jmeno DB pro " + path+" ")
         insertString="INSERT INTO "+dbname+" ("
         for line in lines:
-            print(line)
             break
         columns=input("Napište jména sloupců, v pořadí jako je uvedeno výše, oddělené čárkami ")
         insertString=insertString+columns.replace("\"","")+") VALUES "
