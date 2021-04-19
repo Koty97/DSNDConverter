@@ -44,7 +44,7 @@ def process_xml(path):
                 insertString = insertString + "'"+dict[val].replace("\\'","''")+"'" + ","
         insertString=insertString[:-1]+");\n"
         finishString=finishString+insertString
-    with open(path.replace(path.split(".")[-1], "converted.sql"), "w") as file:
+    with open(path.replace(path.split(".")[-1], "converted.sql"), "w",encoding="utf-8") as file:
         file.write(finishString[:-1].replace("&","&."))
         file.close()
 
@@ -94,7 +94,7 @@ def process_json(path):
             insertString=insertString[:-1]+");\n"
             finishString=finishString+insertString
         file.close()
-    with open(path.replace(path.split(".")[-1], "converted.sql"), "w") as file:
+    with open(path.replace(path.split(".")[-1], "converted.sql"), "w",encoding="utf-8") as file:
         file.write(finishString[:-1].replace("&","&."))
         file.close()
 def process_html(path):
@@ -130,7 +130,7 @@ def process_html(path):
                 finishString=finishString+insertString
             i=i+1
         file.close()
-    with open(path.replace(path.split(".")[-1], "converted.sql"), "w") as file:
+    with open(path.replace(path.split(".")[-1], "converted.sql"), "w",encoding="utf-8") as file:
         file.write(finishString[:-1].replace("&","&."))
         file.close()
 
@@ -153,7 +153,7 @@ def process_csv(path):
             insertString=insertString+"("+line.replace("\"","'")[:-1]+");\n"
             finishString=finishString+insertString
         file.close()
-    with open(path.replace(path.split(".")[-1],"converted.sql"),"w") as file:
+    with open(path.replace(path.split(".")[-1],"converted.sql"),"w",encoding="utf-8") as file:
         file.write(finishString[:-1].replace("&","&."))
         file.close()
 
@@ -174,7 +174,7 @@ def process_sql(path):
             else:
                 finishString=finishString + header.replace("\n","")+line.replace("\n","").replace("\"","'")+";\n"
         file.close()
-    with open(path.replace(path.split(".")[-1], "converted.sql"), "w") as file:
+    with open(path.replace(path.split(".")[-1], "converted.sql"), "w",encoding="utf-8") as file:
         file.write(finishString[:-1])
         file.close()
 
@@ -201,7 +201,7 @@ def process_txt(path):
             insertString=insertString[:-1]+")\n"
             finishString=finishString+insertString
         file.close()
-    with open(path.replace(path.split(".")[-1], "converted.sql"), "w") as file:
+    with open(path.replace(path.split(".")[-1], "converted.sql"), "w",encoding="utf-8") as file:
         file.write(finishString[:-1])
         file.close()
 file_paths = sys.argv[1:]
