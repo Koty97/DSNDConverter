@@ -90,7 +90,7 @@ def process_json(path):
                 if val not in validJSON[x]:
                     insertString=insertString+"''"+","
                 else:
-                    insertString=insertString+"'"+validJSON[x][val]+"'"+","
+                    insertString=insertString+"'"+validJSON[x][val].replace(",","")+"'"+","
             insertString=insertString[:-1]+");\n"
             finishString=finishString+insertString
         file.close()
@@ -187,13 +187,16 @@ def process_txt(path):
         dbname = input("Jmeno DB pro " + path+" ")
         insertString="INSERT INTO "+dbname+" ("
         for line in lines:
+            print(line)
             break
         columns=input("Napište jména sloupců, v pořadí jako je uvedeno výše, oddělené čárkami ")
         insertString=insertString+columns.replace("\"","")+") VALUES "
         header=insertString
+        i=0
         for line in lines:
+            i=i+1
             insertString=header+"("
-            for key in line.split(", "):
+            for key in line.split(", ",len(columns.split(", "))-1):
                 insertString=insertString+"'"+key.replace("\n","")+"',"
             insertString=insertString[:-1]+")\n"
             finishString=finishString+insertString
