@@ -196,7 +196,7 @@ def process_txt(path):
         for line in lines:
             i=i+1
             insertString=header+"("
-            for key in line.split(", ",len(columns.split(", "))-1):
+            for key in line.split(", ",len(columns.split(", "))):
                 insertString=insertString+"'"+key.replace("\n","")+"',"
             insertString=insertString[:-1]+")\n"
             finishString=finishString+insertString
