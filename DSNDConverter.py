@@ -149,9 +149,17 @@ def process_csv(path):
         insertString=insertString+columns.replace("\"","")+") VALUES "
         header=insertString
         for line in lines:
-            insertString=header
-            insertString=insertString+"("+line.replace("\"","'")[:-1]+");\n"
-            finishString=finishString+insertString
+            if "\"" in line:
+                insertString=header
+                insertString=insertString+"("+line.replace("\"","'")[:-1]+");\n"
+                finishString=finishString+insertString
+            else:
+                insertString=header
+                insertString=insertString+"("
+                for key in line.split(","):
+                    insertString=insertString+"'"+key.replace("\n","")+"'"+","
+                insertString=insertString[:-1]+");\n"
+                finishString=finishString+insertString
         file.close()
     with open(path.replace(path.split(".")[-1],"converted.sql"),"w",encoding="utf-8") as file:
         file.write(finishString[:-1].replace("&","&."))
