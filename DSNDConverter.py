@@ -135,6 +135,7 @@ def process_html(path):
         file.close()
 
 def process_csv(path):
+    import datetime
     insertString=""
     header=""
     finishString=""
@@ -156,7 +157,15 @@ def process_csv(path):
             else:
                 insertString=header
                 insertString=insertString+"("
-                for key in line.split(","):
+                delimiter=","
+                if line.count(",")<3:
+                    delimiter=";"
+                for key in line.split(delimiter):
+                    try:
+                        datetime.datetime.strptime(key, '%d-%m-%Y')
+                        insertString=insertString+"TO_DATE('"+key+"','DD-MM-YYYY')"+","
+                    except:
+                        insertString=insertString+"'"+key.replace("\n","")+"'"+","
                     insertString=insertString+"'"+key.replace("\n","")+"'"+","
                 insertString=insertString[:-1]+");\n"
                 finishString=finishString+insertString
